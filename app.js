@@ -21,32 +21,32 @@ app.post("/todo", (req, res) => {
         description,
         isDone: false
     });
-        
+
     res.status(201).send({
         message: "Todo added successfully.",
         todo
     });
 });
 
-app.get("/:id", (req, res) => {
+app.get("/single/:id", (req, res) => {
     const id = req.params.id;
 
     let todoFound;
-    for(let i = 0; i < todo.length; i++) {
-        if(todo[i].id == id) {
+    for (let i = 0; i < todo.length; i++) {
+        if (todo[i].id == id) {
             todoFound = todo[i];
-            return;
         }
     }
 
-    if(!todoFound) {
+    if (!todoFound) {
         res.status(404).send("Todo not found");
-    }
+        return
+    };
 
     res.send({
         message: "Todo found",
         todoFound
-    })
+    });
 })
 
 app.patch("/:id", (req, res) => {
