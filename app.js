@@ -21,10 +21,28 @@ app.post("/todo", (req, res, next) => {
             isDone: false
         }
     ]
+
+    res.status(201).send({
+        message: "Todo added successfully.",
+        todo
+    });
 });
 
+app.patch("/:id", (req, res) => {
+    const id = req.params.id;
+
+    const updatedTodo = [];
+    
+    for(let i = 0; i < todo.length; i++) {
+        if(todo.id == id) {
+            todo[i].isDone = isDone;
+        }
+        updatedTodo = todo[i];
+    }
+    todo = updatedTodo;
+});
 
 
 app.listen(3000, () => {
     console.log("Server has started on port 3000");
-})
+});
