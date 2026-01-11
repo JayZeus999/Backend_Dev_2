@@ -34,13 +34,40 @@ app.patch("/:id", (req, res) => {
     const updatedTodo = [];
     
     for(let i = 0; i < todo.length; i++) {
-        if(todo.id == id) {
+        if(todo[i].id == id) {
             todo[i].isDone = isDone;
         }
         updatedTodo = todo[i];
     }
     todo = updatedTodo;
+
+    res.send({
+        message: "Todo added successfully.",
+        todo
+    });
 });
+
+
+app.delete("/:id", (req, res) => {
+    const id = req.params.id;
+
+    const updatedTodo = [];
+    let deletedTodo;
+    
+    for(let i = 0; i < todo.length; i++) {
+        if(todo[i].id != id) {
+            updatedTodo.push(todo[i]);
+        } else {
+            deletedTodo = todo[i]
+        }
+    }
+    todo = updatedTodo;
+    
+    res.send({
+        message: "Todo added successfully.",
+        deletedTodo
+    });
+})
 
 
 app.listen(3000, () => {
