@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 
-const todo = [];
+let todo = [];
 
 app.get("/", (req, res) => {
     res.send(todo);
@@ -28,6 +28,7 @@ app.post("/todo", (req, res) => {
     });
 });
 
+
 app.get("/single/:id", (req, res) => {
     const id = req.params.id;
 
@@ -47,19 +48,19 @@ app.get("/single/:id", (req, res) => {
         message: "Todo found",
         todoFound
     });
-})
+});
 
 app.patch("/:id", (req, res) => {
     const id = req.params.id;
     const isDone = req.body.isDone;
 
-    const updatedTodo = [];
+    let updatedTodo = [];
 
     for (let i = 0; i < todo.length; i++) {
         if (todo[i].id == id) {
             todo[i].isDone = isDone;
         }
-        updatedTodo = todo[i];
+        updatedTodo.push(todo[i]);
     }
     todo = updatedTodo;
 
@@ -69,11 +70,11 @@ app.patch("/:id", (req, res) => {
     });
 });
 
-
+//Try to click another method like PATCH, b4 DELETE might really work.
 app.delete("/:id", (req, res) => {
     const id = req.params.id;
 
-    const updatedTodo = [];
+    let updatedTodo = [];
     let deletedTodo;
 
     for (let i = 0; i < todo.length; i++) {
@@ -89,7 +90,7 @@ app.delete("/:id", (req, res) => {
         message: "Todo deleted successfully.",
         deletedTodo
     });
-})
+});
 
 
 app.listen(3000, () => {
