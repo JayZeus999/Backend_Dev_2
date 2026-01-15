@@ -4,9 +4,12 @@ const app = express();
 
 app.use(express.json());
 
-let todo = [];
+let todo = [];   
 
+// Route/path, controller
 app.get("/", (req, res) => {
+    console.log("Hello");
+}, (req, res) => {
     res.send(todo);
 });
 
