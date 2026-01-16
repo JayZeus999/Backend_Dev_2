@@ -1,13 +1,13 @@
 const express = require("express");
 
-const app
+const router
 
 // Route/path, controller
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
     res.send(todo);
 });
 
-app.post("/todo", (req, res) => {
+router.post("/todo", (req, res) => {
     const id = Math.floor(Math.random() * 10000);
     const title = req.body.title;
     const description = req.body.description;
@@ -26,7 +26,7 @@ app.post("/todo", (req, res) => {
 });
 
 
-app.get("/single/:id", (req, res) => {
+router.get("/single/:id", (req, res) => {
     const id = req.params.id;
 
     let todoFound;
@@ -47,7 +47,7 @@ app.get("/single/:id", (req, res) => {
     });
 });
 
-app.patch("/:id", (req, res) => {
+router.patch("/:id", (req, res) => {
     const id = req.params.id;
     const isDone = req.body.isDone;
 
@@ -68,7 +68,7 @@ app.patch("/:id", (req, res) => {
 });
 
 //Try to click another method like PATCH, b4 DELETE might really work.
-app.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const id = req.params.id;
 
     let updatedTodo = [];
