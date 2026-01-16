@@ -1,6 +1,6 @@
 const express = require("express");
 
-const router
+const router = express.Router();
 
 // Route/path, controller
 router.get("/", (req, res) => {
@@ -88,3 +88,6 @@ router.delete("/:id", (req, res) => {
         deletedTodo
     });
 });
+
+
+module.exports = router;

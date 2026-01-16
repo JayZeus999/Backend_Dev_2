@@ -1,10 +1,11 @@
 const express = require("express");
+const todoRouter = require("./router")
 
 const app = express();
 
 app.use(express.json());
 
-let todo = [];   
+let todo = [];
 
 
 // Encapsulation, polymorphism, abstraction, inheritance.
