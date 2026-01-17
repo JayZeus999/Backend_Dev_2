@@ -7,6 +7,7 @@ app.use(express.json());
 
 let todo = [];
 
+app.use("/todo", todoRouter);
 
 // Encapsulation, polymorphism, abstraction, inheritance.
 
