@@ -3,9 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Route/path, controller
-router.get("/", (req, res) => {
-    res.send(todo);
-});
+router.get("/", );
 
 router.post("/todo", (req, res) => {
     const id = Math.floor(Math.random() * 10000);
