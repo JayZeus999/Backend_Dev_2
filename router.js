@@ -8,26 +8,7 @@ router.get("/", );
 router.post("/todo", );
 
 
-router.get("/single/:id", (req, res) => {
-    const id = req.params.id;
-
-    let todoFound;
-    for (let i = 0; i < todo.length; i++) {
-        if (todo[i].id == id) {
-            todoFound = todo[i];
-        }
-    }
-
-    if (!todoFound) {
-        res.status(404).send("Todo not found");
-        return
-    };
-
-    res.send({
-        message: "Todo found",
-        todoFound
-    });
-});
+router.get("/single/:id", );
 
 router.patch("/:id", (req, res) => {
     const id = req.params.id;
