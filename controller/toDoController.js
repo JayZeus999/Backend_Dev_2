@@ -60,3 +60,24 @@ const updateTodoStatus = (req, res) => {
         todo
     });
 }
+
+const deleteTodo = (req, res) => {
+    const id = req.params.id;
+
+    let updatedTodo = [];
+    let deletedTodo;
+
+    for (let i = 0; i < todo.length; i++) {
+        if (todo[i].id != id) {
+            updatedTodo.push(todo[i]);
+        } else {
+            deletedTodo = todo[i]
+        }
+    }
+    todo = updatedTodo;
+
+    res.send({
+        message: "Todo deleted successfully.",
+        deletedTodo
+    });
+}
