@@ -20,7 +20,7 @@ const addNewTodo = (req, res) => {
     });
 }
 
-const viewNewTodo = (req, res) => {
+const viewSingleTodo = (req, res) => {
     const id = req.params.id;
 
     let todoFound;
@@ -80,4 +80,12 @@ const deleteTodo = (req, res) => {
         message: "Todo deleted successfully.",
         deletedTodo
     });
+}
+
+module.exports = {
+    addNewTodo,
+    getAllTodo,
+    viewSingleTodo,
+    updateTodoStatus,
+    deleteTodo,
 }
