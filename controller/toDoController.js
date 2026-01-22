@@ -1,3 +1,6 @@
+let todo = [];
+
+
 const getAllTodo = (req, res) => {
     res.send(todo);
 }

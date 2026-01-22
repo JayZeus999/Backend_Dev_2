@@ -5,8 +5,6 @@ const app = express();
 
 app.use(express.json());
 
-let todo = [];
-
 app.use("/todo", todoRouter);
 
 // Encapsulation, polymorphism, abstraction, inheritance.
@@ -14,5 +12,3 @@ app.use("/todo", todoRouter);
 app.listen(3000, () => {
     console.log("Server has started on port 3000");
 });
-
-module.exports = todo;
