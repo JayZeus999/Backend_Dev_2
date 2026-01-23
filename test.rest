@@ -1,1 +1,11 @@
 GET http://localhost:3000/todo
+
+###
+
+POST http://localhost:3000/todo/todo
+Content-Type: application/json
+
+{
+    "title": "First task",
+    "description": "This is my first task."
+}
