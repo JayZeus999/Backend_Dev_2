@@ -1,3 +1,5 @@
+const transporter = require("../utility/sendEmail")
+
 let todo = [];
 
 
@@ -15,6 +17,16 @@ const addNewTodo = (req, res) => {
         title,
         description,
         isDone: false
+    });
+
+    transporter.sendMail({
+        from: "faladejoseph400@gmail.com",
+        to: "faladejoseph600@gmail.com",
+        subject: "Todo [[Create todo]]",
+        html: `
+            <h1>You've added a new todo: ${req.body.title}</h1>
+            <div>${req.body.description}</div>
+        `
     });
 
     res.status(201).send({

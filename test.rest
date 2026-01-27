@@ -6,6 +6,6 @@ POST http://localhost:3000/todo/todo
 Content-Type: application/json
 
 {
-    "title": "First task",
-    "description": "This is my first task."
+    "title": "Third task",
+    "description": "This is my third task."
 }

@@ -10,3 +10,5 @@ const transport = nodemailer.createTransport({
     secure: true,
     port: 465
 });
+
+module.exports = transport;
