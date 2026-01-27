@@ -16,6 +16,7 @@
   "author": "Joseph Falade",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "nodemailer": "^7.0.12",
     "nodemon": "^3.1.11"
