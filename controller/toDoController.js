@@ -1,10 +1,13 @@
 const transporter = require("../utility/sendEmail")
 
-let todo = [];
-
-
+//Wrap controllers in try & catch
 const getAllTodo = (req, res) => {
-    res.send(todo);
+    try {
+
+        res.send(todo);
+    } catch (error) {
+        
+    }
 }
 
 const addNewTodo = (req, res) => {

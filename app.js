@@ -6,7 +6,7 @@ require("dotenv").config();
 mongoose.connect("mongodb://localhost:27017/todo-test-db").then(() => {
     console.log("Connected to the database.");
 }).catch((err) => {
-    console.log("An error occured while trying to connect.")
+    console.log("An error occured while trying to connect::::", err)
 })
 
 const app = express();
