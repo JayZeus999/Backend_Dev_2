@@ -1,12 +1,15 @@
-const transporter = require("../utility/sendEmail")
+const transporter = require("../utility/sendEmail");
+const todoModel = require("../schema/todo") //Import todoModel
 
 //Wrap controllers in try & catch
-const getAllTodo = (req, res) => {
+const getAllTodo = async (req, res) => {
     try {
-
+        const todo = await todoModel.find();
         res.send(todo);
     } catch (error) {
-        
+        res.status(500).send({
+            error
+        });
     }
 }
 
