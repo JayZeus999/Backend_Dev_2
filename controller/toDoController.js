@@ -13,12 +13,12 @@ const getAllTodo = async (req, res) => {
     }
 }
 
-const addNewTodo = (req, res) => {
-    const id = Math.floor(Math.random() * 10000);
+const addNewTodo = async (req, res) => {
+
     const title = req.body.title;
     const description = req.body.description;
 
-    const newTodo = todoModel.create({
+    const newTodo = await todoModel.create({
         title, description
     });
 
@@ -38,20 +38,10 @@ const addNewTodo = (req, res) => {
     });
 }
 
-const viewSingleTodo = (req, res) => {
+const viewSingleTodo = async (req, res) => {
     const id = req.params.id;
 
-    let todoFound;
-    for (let i = 0; i < todo.length; i++) {
-        if (todo[i].id == id) {
-            todoFound = todo[i];
-        }
-    }
-
-    if (!todoFound) {
-        res.status(404).send("Todo not found");
-        return
-    };
+    const todo = await todoModel.findById(id);
 
     res.send({
         message: "Todo found",
