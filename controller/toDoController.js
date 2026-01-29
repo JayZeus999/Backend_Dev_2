@@ -43,26 +43,34 @@ const viewSingleTodo = async (req, res) => {
 
     const todo = await todoModel.findById(id);
 
+    if(!todo) {
+        res.status(404).send({
+            message: "No todo found"
+        });
+        return;
+    }
+
     res.send({
         message: "Todo found",
         todoFound
     });
 }
 
-const updateTodoStatus = (req, res) => {
+const updateTodoStatus = async (req, res) => {
     const id = req.params.id;
     const isDone = req.body.isDone;
 
-    let updatedTodo = [];
+    const doesTodoExist = await todoModel.findById(id);
 
-    for (let i = 0; i < todo.length; i++) {
-        if (todo[i].id == id) {
-            todo[i].isDone = isDone;
-        }
-        updatedTodo.push(todo[i]);
+    if(!doesTodoExist) {
+        res.send("Todo does not exist");
+        return;
     }
-    todo = updatedTodo;
 
+    const todo = await todoModel.findByIdAndUpdate(id, {
+        todoStatus: isDone
+    });
+    
     res.send({
         message: "Todo added successfully.",
         todo

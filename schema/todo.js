@@ -9,9 +9,14 @@ const schema = new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    todoStatus: {
+        type: String,
+        enum: ["pending", "ongoing", "completed"],
+        default: "pending"
     }
 }, {
-    timestamps: true
+    timestamps: true  //For Date purposes.
 });
 
 const todoModel = mongoose.model("todos", schema);
