@@ -77,20 +77,10 @@ const updateTodoStatus = async (req, res) => {
     });
 }
 
-const deleteTodo = (req, res) => {
+const deleteTodo = async (req, res) => {
     const id = req.params.id;
 
-    let updatedTodo = [];
-    let deletedTodo;
-
-    for (let i = 0; i < todo.length; i++) {
-        if (todo[i].id != id) {
-            updatedTodo.push(todo[i]);
-        } else {
-            deletedTodo = todo[i]
-        }
-    }
-    todo = updatedTodo;
+    let deletedTodo = await todoModel.findByIdAndDelete(id);
 
     res.send({
         message: "Todo deleted successfully.",
