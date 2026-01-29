@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-//A Schema is used to import structure.
+//A Schema is used to impose structure.
 const schema = new mongoose.Schema({
     title: {
         type: String,
@@ -13,3 +13,7 @@ const schema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+const todoModel = mongoose.model("todos", schema);
+
+module.exports = todoModel;
