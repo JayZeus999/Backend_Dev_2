@@ -2,3 +2,5 @@
 
 *.http
 *.rest
+
+node_modules
