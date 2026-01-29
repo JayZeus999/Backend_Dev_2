@@ -18,11 +18,8 @@ const addNewTodo = (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
 
-    todo.push({
-        id,
-        title,
-        description,
-        isDone: false
+    const newTodo = todoModel.create({
+        title, description
     });
 
     transporter.sendMail({
@@ -37,7 +34,7 @@ const addNewTodo = (req, res) => {
 
     res.status(201).send({
         message: "Todo added successfully.",
-        todo
+        newTodo
     });
 }
 
