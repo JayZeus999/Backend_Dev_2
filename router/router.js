@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const toDoController = require("./controller/toDoController")
+const toDoController = require("../controller/toDoController")
 
 // Todo Router  -->  Route/path, controller
 router.get("/", toDoController.getAllTodo);

@@ -1,5 +1,6 @@
 const express = require("express");
-const todoRouter = require("./router");
+const todoRouter = require("./router/router");
+const authRouter = require("./router/userRouter");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -13,6 +14,7 @@ const app = express();
 
 app.use(express.json()); //Middleware used to accept & pass requests
 
+app.use("/auth", authRouter);
 app.use("/todo", todoRouter);
 
 // Encapsulation, polymorphism, abstraction, inheritance.
