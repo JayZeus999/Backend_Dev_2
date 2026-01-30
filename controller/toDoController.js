@@ -1,5 +1,6 @@
 const transporter = require("../utility/sendEmail");
-const todoModel = require("../schema/todo") //Import todoModel
+const todoModel = require("../schema/todo"); //Import todoModel
+const joi = require("joi")
 
 //Wrap controllers in try & catch
 const getAllTodo = async (req, res) => {
@@ -43,7 +44,7 @@ const viewSingleTodo = async (req, res) => {
 
     const todo = await todoModel.findById(id);
 
-    if(!todo) {
+    if (!todo) {
         res.status(404).send({
             message: "No todo found"
         });
@@ -52,7 +53,7 @@ const viewSingleTodo = async (req, res) => {
 
     res.send({
         message: "Todo found",
-        todoFound
+        todo
     });
 }
 
@@ -60,19 +61,30 @@ const updateTodoStatus = async (req, res) => {
     const id = req.params.id;
     const isDone = req.body.isDone;
 
+    const schema = joi.string().valid("pending", "ongoing", "completed").required();
+
+    const { error } = schema.validate(isDone);
+
+    if (error) {
+        res.status(422).send({
+            message: error.message
+        });
+        return;
+    }
+
     const doesTodoExist = await todoModel.findById(id);
 
-    if(!doesTodoExist) {
+    if (!doesTodoExist) {
         res.send("Todo does not exist");
         return;
     }
 
     const todo = await todoModel.findByIdAndUpdate(id, {
         todoStatus: isDone
-    });
-    
+    }, { new: true });
+
     res.send({
-        message: "Todo added successfully.",
+        message: "Todo updated successfully.",
         todo
     });
 }

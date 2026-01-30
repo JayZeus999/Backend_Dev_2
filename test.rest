@@ -2,6 +2,10 @@ GET http://localhost:3000/todo
 
 ###
 
+GET http://localhost:3000/todo/single/697b2dd3baee3ef3bf0aacdb
+
+###
+
 POST http://localhost:3000/todo/todo
 Content-Type: application/json
 
@@ -9,3 +13,16 @@ Content-Type: application/json
     "title": "Sixth task",
     "description": "This is my sixth task."
 }
+
+###
+
+PATCH http://localhost:3000/todo/697b2dd3baee3ef3bf0aacdb
+Content-Type: application/json
+
+{
+    "isDone": "invalid"
+}
+
+###
+
+DELETE  http://localhost:3000/todo/697b2dd3baee3ef3bf0aacdb
