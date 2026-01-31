@@ -9,6 +9,10 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    isEmailVerified: {
+        type: Boolean,
+        default: false
+    },
     password: {
         type: String,
         required: true
