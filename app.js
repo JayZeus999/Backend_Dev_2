@@ -4,7 +4,7 @@ const authRouter = require("./router/userRouter");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-mongoose.connect("mongodb://localhost:27017/todo-test-db").then(() => {
+mongoose.connect(process.env.DB_URL).then(() => {
     console.log("Connected to the database.");
 }).catch((err) => {
     console.log("An error occured while trying to connect::::", err)

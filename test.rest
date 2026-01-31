@@ -26,3 +26,14 @@ Content-Type: application/json
 ###
 
 DELETE  http://localhost:3000/todo/697b2dd3baee3ef3bf0aacdb
+
+###
+
+POST  http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "fullName": "Falade Joseph",
+    "email": "faladejoseph400@gmail.com",
+    "password": "whatever"
+}
