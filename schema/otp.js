@@ -23,4 +23,4 @@ const schema = new mongoose.Schema({
 
 const otpsModel = mongoose.model("otps", schema);
 
-module.exports = userModel;
+module.exports = otpsModel;

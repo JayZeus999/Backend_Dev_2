@@ -1,4 +1,5 @@
 const userModel = require("../schema/user");
+const otpsModel = require("../schema/otp");
 const bcrypt = require("bcrypt");
 
 async function register (req, res) {
@@ -17,7 +18,7 @@ async function register (req, res) {
 
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    await userModel.create({
+    const newUser = await userModel.create({
         fullName, email, password: hashedPassword
     });
 
