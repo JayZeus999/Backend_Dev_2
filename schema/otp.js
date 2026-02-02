@@ -5,6 +5,10 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    otpToken: {
+        type: String,
+        required: true
+    },
     userId: {
         type: mongoose.Types.ObjectId,
         ref: "users",
@@ -12,10 +16,11 @@ const schema = new mongoose.Schema({
     },
     purpose: {
         type: String,
-        enum: ["verify email", "reset password"]
+        enum: ["verify-email", "reset-password"],
+        required: true
     }
 }, {timestamps: true});
 
-const userModel = mongoose.model("users", schema);
+const otpsModel = mongoose.model("otps", schema);
 
 module.exports = userModel;
