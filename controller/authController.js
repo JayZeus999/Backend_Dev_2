@@ -1,5 +1,6 @@
 const userModel = require("../schema/user");
 const otpsModel = require("../schema/otp");
+const generateOTP = require("../utility/generateOtp");
 const bcrypt = require("bcrypt");
 
 async function register (req, res) {
@@ -20,6 +21,12 @@ async function register (req, res) {
 
     const newUser = await userModel.create({
         fullName, email, password: hashedPassword
+    });
+
+    const otp = generateOTP();
+
+    const otpDetails = await otpsModel.create({
+        otp, otpToken
     });
 
     res.status(201).send({
