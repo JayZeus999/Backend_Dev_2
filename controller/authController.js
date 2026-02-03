@@ -26,7 +26,7 @@ async function register (req, res) {
     const otp = generateOTP();
 
     const otpDetails = await otpsModel.create({
-        otp, otpToken
+        otp, otpToken, userId: newUser._id, purpose: "verify-email"
     });
 
     res.status(201).send({
