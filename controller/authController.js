@@ -1,7 +1,8 @@
 const userModel = require("../schema/user");
 const otpsModel = require("../schema/otp");
 const generateOTP = require("../utility/generateOtp");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt"); 
+const smtp = require("../utility/sendEmail")
 
 async function register (req, res) {
     const {
@@ -25,17 +26,26 @@ async function register (req, res) {
 
     const otp = generateOTP();
 
-    const otpDetails = await otpsModel.create({
+    await otpsModel.create({
         otp, otpToken, userId: newUser._id, purpose: "verify-email"
     });
 
+    await smtp.sendMail({
+        from: process.env.EMAIL_USERNAME, 
+        to:email,
+        subject: "Company Name - Verify Email",
+        html: `
+            <h1>Verify email</h1>
+            <div>Your otp is: ${otp}</div>
+        `
+    });
+
     res.status(201).send({
-        message: "User created successfully."
+        message: "User created successfully.",
+        otpToken, purpose
     });
 
 }
-
-
 
 module.exports = {
     register
