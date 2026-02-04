@@ -1,8 +1,8 @@
 const userModel = require("../schema/user");
-const otpsModel = require("../schema/otp");
+const otpModel = require("../schema/otp");
 const generateOTP = require("../utility/generateOtp");
 const bcrypt = require("bcrypt"); 
-const smtp = require("../utility/sendEmail")
+const smtp = require("../utility/sendEmail");
 
 async function register (req, res) {
     const {
@@ -26,7 +26,7 @@ async function register (req, res) {
 
     const otp = generateOTP();
 
-    await otpsModel.create({
+    await otpModel.create({
         otp, otpToken, userId: newUser._id, purpose: "verify-email"
     });
 
@@ -45,6 +45,18 @@ async function register (req, res) {
         otpToken, purpose
     });
 
+}
+
+async function verifyOTP(req, res) {
+    const {otp, otpToken, purpose} = req.body;  
+
+    const otpDetails = await otpModel.findOne({otpToken});
+
+    if(!otpDetails) {
+        res.status(422).send({
+            message: "Invalid otp token"
+        });
+    }
 }
 
 module.exports = {
