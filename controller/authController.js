@@ -51,7 +51,12 @@ async function register (req, res) {
 async function verifyOTP(req, res) {
     const {otp, otpToken, purpose} = req.body;  
 
-    
+    if(purpose != "verify-email") {
+        res.status(422).send({
+            message: "Invalid otp purpose"
+        });
+        return;
+    }
 
     const otpDetails = await otpModel.findOne({otpToken, purpose});
 
