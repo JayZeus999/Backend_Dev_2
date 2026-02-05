@@ -51,11 +51,20 @@ async function register (req, res) {
 async function verifyOTP(req, res) {
     const {otp, otpToken, purpose} = req.body;  
 
+    
+
     const otpDetails = await otpModel.findOne({otpToken, purpose});
 
     if(!otpDetails) {
         res.status(422).send({
             message: "Invalid otp token"
+        });
+        return;
+    }
+
+    if(otp != otpDetails.otp) {
+        res.status(422).send({
+            message: "Invalid otp"
         });
         return;
     }
