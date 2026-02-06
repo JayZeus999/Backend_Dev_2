@@ -27,8 +27,10 @@ async function register (req, res) {
 
     const otp = generateOTP();
 
+    const generateOTPToken = v4();
+
     await otpModel.create({
-        otp, otpToken: v4(), userId: newUser._id, purpose: "verify-email"
+        otp, otpToken: generateOTPToken, userId: newUser._id, purpose: "verify-email"
     });
 
     await smtp.sendMail({
@@ -43,7 +45,7 @@ async function register (req, res) {
 
     res.status(201).send({
         message: "User created successfully.",
-        otpToken, purpose
+        otpToken: generateOTPToken, purpose
     });
 
 }
@@ -73,8 +75,17 @@ async function verifyOTP(req, res) {
         });
         return;
     }
+
+    await userModel.findByIdAndUpdate(otpDetails._id, {
+        isEmailVerified: true
+    }); 
+
+    res.send({
+        message: "User email verified successfully."
+    });
 }
 
 module.exports = {
-    register
+    register,
+    verifyOTP
 }
