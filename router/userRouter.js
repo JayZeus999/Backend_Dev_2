@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/register", authController.register);
 
-router.patch("/", authController.verifyOTP);
+router.patch("/verify", authController.verifyOTP);
 
 // router.post("/login");
 

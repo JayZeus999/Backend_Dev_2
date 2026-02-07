@@ -35,7 +35,7 @@ async function register (req, res) {
 
     await smtp.sendMail({
         from: process.env.EMAIL_USERNAME, 
-        to:email,
+        to:email,    
         subject: "Company Name - Verify Email",
         html: `
             <h1>Verify email</h1>
@@ -45,7 +45,7 @@ async function register (req, res) {
 
     res.status(201).send({
         message: "User created successfully.",
-        otpToken: generateOTPToken, purpose
+        otpToken: generateOTPToken, purpose: "verify-email"
     });
 
 }
