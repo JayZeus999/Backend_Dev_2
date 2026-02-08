@@ -24,8 +24,8 @@ const addNewTodo = async (req, res) => {
     });
 
     transporter.sendMail({
-        from: "faladejoseph400@gmail.com",
-        to: "faladejoseph700@gmail.com",
+        from: "faladejoseph700@gmail.com",
+        to: "faladejoseph400@gmail.com",
         subject: "Todo [[Create todo]]",
         html: `
             <h1>You've added a new todo: ${req.body.title}</h1>
