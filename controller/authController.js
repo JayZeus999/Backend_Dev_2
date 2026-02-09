@@ -87,6 +87,19 @@ async function verifyOTP(req, res) {
     });
 }
 
+async function login (req, res) {
+    const {email, password} = req.body;
+
+    const userDetail = await userModel.findOne({email});
+    
+    if(!userDetail) {
+        res.status(404).send({
+            message: "User not found"
+        });
+        return;
+    }
+}
+
 module.exports = {
     register,
     verifyOTP
