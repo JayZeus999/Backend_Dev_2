@@ -76,9 +76,11 @@ async function verifyOTP(req, res) {
         return;
     }
 
-    await userModel.findByIdAndUpdate(otpDetails._id, {
+    await userModel.findByIdAndUpdate(otpDetails.userId, {
         isEmailVerified: true
     }); 
+
+    await otpModel.deleteMany({userId: otpDetails.userId, purpose: "verify-email"}); 
 
     res.send({
         message: "User email verified successfully."

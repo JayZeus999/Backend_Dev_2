@@ -37,3 +37,17 @@ Content-Type: application/json
     "email": "faladejoseph700@gmail.com",
     "password": "whatever"
 }
+
+###
+PATCH http://localhost:3000/auth/verify
+Content-Type: application/json
+
+{
+    "otp": "1112",
+    "otpToken": "15f9aa7d-511b-4b58-a2fa-fa4885dbe528",
+    "purpose": "verify-email"
+}
+
+//"message": "User created successfully.",
+//"otpToken": "15f9aa7d-511b-4b58-a2fa-fa4885dbe528",
+//"purpose": "verify-email"
