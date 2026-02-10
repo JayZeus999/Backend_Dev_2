@@ -4,6 +4,7 @@ const generateOTP = require("../utility/generateOtp");
 const bcrypt = require("bcrypt"); 
 const smtp = require("../utility/sendEmail");
 const {v4} = require("uuid");  
+const jsonWebToken = require("jsonwebtoken");
 
 async function register (req, res) {
     const {
@@ -108,9 +109,21 @@ async function login (req, res) {
         });
         return;
     }
+
+    const token = jsonWebToken.sign({userId: userDetail.id, email: userDetail.email});
+
+    res.send({
+        message: "Login successful",
+        userDetail: {
+            fullName: userDetail.fullName,
+            email: userDetail.email,
+        },
+        token
+    })
 }
 
 module.exports = {
     register,
-    verifyOTP
+    verifyOTP,
+    login
 }

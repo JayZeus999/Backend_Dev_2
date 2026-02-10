@@ -7,6 +7,6 @@ router.post("/register", authController.register);
 
 router.patch("/verify", authController.verifyOTP);
 
-// router.post("/login");
+router.post("/login", authController.login);
 
 module.exports = router;
