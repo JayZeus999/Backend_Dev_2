@@ -98,6 +98,16 @@ async function login (req, res) {
         });
         return;
     }
+
+    //Check if passwords match
+    const passwordsMatch = bcrypt.compareSync(password, userDetail.password);
+
+    if(!passwordsMatch) {
+        res.status(400).send({
+            message: "Invalid credentials"
+        });
+        return;
+    }
 }
 
 module.exports = {
