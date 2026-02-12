@@ -1,19 +1,19 @@
 const userModel = require("../schema/user");
 const otpModel = require("../schema/otp");
 const generateOTP = require("../utility/generateOtp");
-const bcrypt = require("bcrypt"); 
+const bcrypt = require("bcrypt");
 const smtp = require("../utility/sendEmail");
-const {v4} = require("uuid");  
+const { v4 } = require("uuid");
 const jsonWebToken = require("jsonwebtoken");
 
-async function register (req, res) {
+async function register(req, res) {
     const {
         fullName, email, password
     } = req.body;
 
-    const emailExists = await userModel.findOne({email});
+    const emailExists = await userModel.findOne({ email });
 
-    if(emailExists) {
+    if (emailExists) {
         res.status(409).send({
             message: "Emails already exists."
         });
@@ -35,8 +35,8 @@ async function register (req, res) {
     });
 
     await smtp.sendMail({
-        from: process.env.EMAIL_USERNAME, 
-        to:email,    
+        from: process.env.EMAIL_USERNAME,
+        to: email,
         subject: "Company Name - Verify Email",
         html: `
             <h1>Verify email</h1>
@@ -52,25 +52,25 @@ async function register (req, res) {
 }
 
 async function verifyOTP(req, res) {
-    const {otp, otpToken, purpose} = req.body;  
+    const { otp, otpToken, purpose } = req.body;
 
-    if(purpose != "verify-email") {
+    if (purpose != "verify-email") {
         res.status(422).send({
             message: "Invalid otp purpose"
         });
         return;
     }
 
-    const otpDetails = await otpModel.findOne({otpToken, purpose});
+    const otpDetails = await otpModel.findOne({ otpToken, purpose });
 
-    if(!otpDetails) {
+    if (!otpDetails) {
         res.status(422).send({
             message: "Invalid otp token"
         });
         return;
     }
 
-    if(otp != otpDetails.otp) {
+    if (otp != otpDetails.otp) {
         res.status(422).send({
             message: "Invalid otp"
         });
@@ -79,21 +79,21 @@ async function verifyOTP(req, res) {
 
     await userModel.findByIdAndUpdate(otpDetails.userId, {
         isEmailVerified: true
-    }); 
+    });
 
-    await otpModel.deleteMany({userId: otpDetails.userId, purpose: "verify-email"}); 
+    await otpModel.deleteMany({ userId: otpDetails.userId, purpose: "verify-email" });
 
     res.send({
         message: "User email verified successfully."
     });
 }
 
-async function login (req, res) {
-    const {email, password} = req.body;
+async function login(req, res) {
+    const { email, password } = req.body;
 
-    const userDetail = await userModel.findOne({email});
-    
-    if(!userDetail) {
+    const userDetail = await userModel.findOne({ email });
+
+    if (!userDetail) {
         res.status(404).send({
             message: "User not found"
         });
@@ -103,14 +103,14 @@ async function login (req, res) {
     //Check if passwords match
     const passwordsMatch = bcrypt.compareSync(password, userDetail.password);
 
-    if(!passwordsMatch) {
+    if (!passwordsMatch) {
         res.status(400).send({
             message: "Invalid credentials"
         });
         return;
     }
 
-    const token = jsonWebToken.sign({userId: userDetail.id, email: userDetail.email});
+    const token = jsonWebToken.sign({ userId: userDetail.id, email: userDetail.email }, process.env.JWT_KEY);
 
     res.send({
         message: "Login successful",

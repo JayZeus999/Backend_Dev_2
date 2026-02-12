@@ -48,6 +48,21 @@ Content-Type: application/json
     "purpose": "verify-email"
 }
 
-//"message": "User created successfully.",
-//"otpToken": "15f9aa7d-511b-4b58-a2fa-fa4885dbe528",
-//"purpose": "verify-email"
+###
+
+POST  http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "faladejoseph700@gmail.com",
+    "password": "whatever"
+}
+
+# {
+#   "message": "Login successful",
+#   "userDetail": {
+#     "fullName": "Falade Joseph",
+#     "email": "faladejoseph700@gmail.com"
+#   },
+#   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTg4MmNmYzUxNmNiNWFjYmE2ODkxOWMiLCJlbWFpbCI6ImZhbGFkZWpvc2VwaDcwMEBnbWFpbC5jb20iLCJpYXQiOjE3NzA3MjYwNDF9.4RgrkjvXuiU268Gc0n5mYwhMNP-aovMlJdz2ThHFktQ"
+# }
